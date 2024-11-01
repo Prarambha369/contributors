@@ -379,20 +379,20 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "name": "Tej Kshetri",
+    "name": null,
     "company": null,
     "blog": "kshetritej.com.np",
     "location": "Bhakimli",
     "email": null,
     "hireable": null,
-    "bio": "if it's stupid and it works, it ain't stupid.",
+    "bio": null,
     "twitter_username": "kshetritej_",
     "public_repos": 30,
     "public_gists": 4,
     "followers": 17,
     "following": 47,
     "created_at": "2022-11-10T15:19:09Z",
-    "updated_at": "2024-10-31T17:16:53Z",
+    "updated_at": "2024-11-01T13:00:53Z",
     "contributions": 2
   },
   {
@@ -680,7 +680,7 @@
     "followers": 19,
     "following": 17,
     "created_at": "2021-03-13T07:57:22Z",
-    "updated_at": "2024-10-05T11:11:38Z",
+    "updated_at": "2024-11-01T12:44:35Z",
     "contributions": 1
   },
   {
