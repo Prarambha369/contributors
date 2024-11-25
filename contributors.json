@@ -415,7 +415,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "name": null,
+    "name": "Allison Burgers",
     "company": null,
     "blog": "kshetritej.com.np",
     "location": "Bhakimli",
@@ -428,7 +428,7 @@
     "followers": 18,
     "following": 49,
     "created_at": "2022-11-10T15:19:09Z",
-    "updated_at": "2024-11-25T14:38:24Z",
+    "updated_at": "2024-11-25T15:29:45Z",
     "contributions": 2
   },
   {
@@ -533,7 +533,7 @@
     "twitter_username": "Aaditya_616",
     "public_repos": 23,
     "public_gists": 0,
-    "followers": 6,
+    "followers": 7,
     "following": 14,
     "created_at": "2021-03-20T05:59:50Z",
     "updated_at": "2024-11-24T07:57:28Z",
