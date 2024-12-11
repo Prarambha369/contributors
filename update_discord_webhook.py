@@ -1,3 +1,4 @@
+import os
 import requests
 import json
 
@@ -26,11 +27,7 @@ for contributor in contributors:
                 "value": contributor.get("company", "N/A"),
                 "inline": True
             }
-        ],
-        "color": 0x2ECC71,
-        "footer": {
-            "text": f"Contributions: {contributor['contributions']}"
-        }
+        ]
     }
     embeds.append(embed)
 
@@ -40,9 +37,11 @@ payload = {
     "embeds": embeds
 }
 
+# Get the webhook URL and message ID from environment variables
+webhook_url = os.getenv('DISCORD_WEBHOOK_URL')
+message_id = os.getenv('DISCORD_MESSAGE_ID')
+
 # Update the Discord message
-webhook_url = 'DISCORD_WEBHOOK_URL'
-message_id = 'DISCORD_MESSAGE_ID'
 response = requests.patch(f'{webhook_url}/messages/{message_id}', json=payload)
 if response.status_code == 200:
     print('Webhook updated successfully!')
