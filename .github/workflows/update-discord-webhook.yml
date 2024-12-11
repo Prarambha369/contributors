@@ -1,0 +1,30 @@
+name: Update Discord Webhook
+
+on:
+  push:
+    paths:
+      - 'contributors.json'
+
+jobs:
+  update-webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Update Discord Webhook
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_MESSAGE_ID: ${{ secrets.DISCORD_MESSAGE_ID }}
+        run: |
+          python update_discord_webhook.py
