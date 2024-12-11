@@ -33,47 +33,28 @@ def create_embeds(contributors):
         embeds.append(embed)
     return embeds
 
-# Create embeds for the first 10 contributors
-first_embeds = create_embeds(contributors[:10])
+# Split contributors into chunks of 10
+chunks = [contributors[i:i + 10] for i in range(0, len(contributors), 10)]
 
-# Create embeds for the remaining contributors
-remaining_embeds = create_embeds(contributors[10:])
-
-# Prepare the payloads to update the Discord messages
-first_payload = {
-    "content": "Here are the latest TOP 10 contributors:",
-    "embeds": first_embeds
-}
-
-remaining_payload = {
-    "content": "Here are the remaining contributors:",
-    "embeds": remaining_embeds
-}
-
-# Print the payloads for debugging
-print(json.dumps(first_payload, indent=2))
-print(json.dumps(remaining_payload, indent=2))
-
-# Get the webhook URL and message ID from environment variables
+# Get the webhook URL from environment variables
 webhook_url = os.getenv('DISCORD_WEBHOOK_URL')
-message_id = os.getenv('DISCORD_MESSAGE_ID')
 
-# Update the Discord message with the first payload
-response = requests.patch(f'{webhook_url}/messages/{message_id}', json=first_payload)
-print(f'Response status code: {response.status_code}')
-print(f'Response text: {response.text}')
-
-if response.status_code == 200:
-    print('Webhook updated successfully with the first payload!')
-else:
-    print(f'Failed to update webhook with the first payload: {response.status_code} {response.text}')
-
-# Send the second message with the remaining payload
-response = requests.post(webhook_url, json=remaining_payload)
-print(f'Response status code: {response.status_code}')
-print(f'Response text: {response.text}')
-
-if response.status_code == 200 or response.status_code == 204:
-    print('Webhook updated successfully with the remaining payload!')
-else:
-    print(f'Failed to update webhook with the remaining payload: {response.status_code} {response.text}')
+# Send each chunk as a separate message
+for i, chunk in enumerate(chunks):
+    payload = {
+        "content": f"Contributors batch {i + 1}:",
+        "embeds": create_embeds(chunk)
+    }
+    
+    # Print the payload for debugging
+    print(json.dumps(payload, indent=2))
+    
+    # Send the message
+    response = requests.post(webhook_url, json=payload)
+    print(f'Response status code: {response.status_code}')
+    print(f'Response text: {response.text}')
+    
+    if response.status_code == 200 or response.status_code == 204:
+        print(f'Webhook updated successfully with batch {i + 1}!')
+    else:
+        print(f'Failed to update webhook with batch {i + 1}: {response.status_code} {response.text}')
