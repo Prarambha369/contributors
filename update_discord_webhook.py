@@ -37,6 +37,9 @@ payload = {
     "embeds": embeds
 }
 
+# Print the payload for debugging
+print(json.dumps(payload, indent=2))
+
 # Get the webhook URL and message ID from environment variables
 webhook_url = os.getenv('DISCORD_WEBHOOK_URL')
 message_id = os.getenv('DISCORD_MESSAGE_ID')
