@@ -43,6 +43,9 @@ message_id = os.getenv('DISCORD_MESSAGE_ID')
 
 # Update the Discord message
 response = requests.patch(f'{webhook_url}/messages/{message_id}', json=payload)
+print(f'Response status code: {response.status_code}')
+print(f'Response text: {response.text}')
+
 if response.status_code == 200:
     print('Webhook updated successfully!')
 else:
