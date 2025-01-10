@@ -1,10 +1,10 @@
 name: Send Contributors to Discord
 on:
-  schedule:
-    - cron: '0 0 * * *' # Schedule to run daily at midnight UTC
   push:
     branches:
       - main
+    paths:
+      - contributors.json # Only trigger on changes to this file
 
 jobs:
   send-to-discord:
@@ -25,13 +25,15 @@ jobs:
 
       - name: Fetch contributors.json
         run: |
-          curl -H "Authorization: token ${{ secrets.MAINTAINERS_POLLING_TOKEN }}" \
-               -H "Accept: application/vnd.github.v3.raw" \
-               -O https://raw.githubusercontent.com/GNOME-Nepal/contributors/main/contributors.json
+          curl -O https://raw.githubusercontent.com/GNOME-Nepal/contributors/main/contributors.json
+
+      - name: Debug Information
+        run: |
+          ls -la
+          cat contributors.json
 
       - name: Send to Discord
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          DISCORD_MESSAGE_ID: ${{ secrets.DISCORD_MESSAGE_ID }}
         run: |
           python send_to_discord.py
