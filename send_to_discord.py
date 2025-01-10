@@ -28,13 +28,26 @@ def create_embeds(contributors):
     embeds = []
     for contributor in contributors:
         embed = {
-            "title": contributor["name"],
-            "color": int("4A90E2", 16),
-            "username": contributor["login"],
+            "title": contributor.get("name", contributor["login"]),
+            "color": 0x4A90E2,  # GNOME blue color
             "description": contributor.get("bio", "No bio provided"),
             "footer": {"text": f"Total contributions: {contributor['contributions']}"},
             "url": contributor["html_url"],
             "thumbnail": {"url": contributor["avatar_url"]},
+            "fields": [
+                {"name": "GitHub Username", "value": contributor["login"], "inline": True},
+                {"name": "Company", "value": contributor.get("company", "N/A"), "inline": True},
+                {"name": "Email", "value": contributor.get("email", "N/A"), "inline": True},
+                {"name": "Website", "value": contributor.get("blog", "N/A"), "inline": True},
+                {"name": "Twitter", "value": contributor.get("twitter_username", "N/A"), "inline": True},
+                {"name": "Hireable", "value": "Yes" if contributor.get("hireable") else "No", "inline": True},
+                {"name": "Location", "value": contributor.get("location", "N/A"), "inline": True},
+                {"name": "Bio", "value": contributor.get("bio", "N/A"), "inline": False},
+                {"name": "Public Repos", "value": str(contributor.get("public_repos", "N/A")), "inline": True},
+                {"name": "Followers", "value": str(contributor.get("followers", "N/A")), "inline": True},
+                {"name": "Following", "value": str(contributor.get("following", "N/A")), "inline": True},
+                {"name": "> Feature by", "value": "> <@1132618599798947871>", "inline": True}
+            ]
         }
         embeds.append(embed)
     return embeds
